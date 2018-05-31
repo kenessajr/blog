@@ -11,15 +11,22 @@ class PostsNew extends Component {
             type="text"
              {...field.input}
           />
+          { field.meta.error }
         </div>
       )
   }
 
-
+  onSubmit(values) {
+    // this === component
+    console.log(values);
+  }
 
   render() {
+    // Redux form connected, Redux form will check if validate before calling callback
+    const { handleSubmit } = this.props;
+
     return (
-      <form>
+      <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
         <Field
           label="Title"
           name="title"
@@ -35,6 +42,7 @@ class PostsNew extends Component {
             name="content"
             component={this.renderField}
           />
+          <button type="submit" className="btn btn-primary">Submit</button>
       </form>
     );
   }
@@ -45,9 +53,9 @@ function validate(values) {
   const errors = {};
 
   // Validate the input from 'values'
-  if (values.title.length < 3) {
-    errors.title = 'Title must be at least 3 characters';
-  }
+  // if (values.title.length < 3) {
+  //   errors.title = 'Title must be at least 3 characters';
+  // }
   if (!values.title) {
     errors.title = "Enter a title!";
   }
