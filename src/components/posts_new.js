@@ -40,6 +40,31 @@ class PostsNew extends Component {
   }
 }
 
+function validate(values) {
+  // console.log(values) -> { title: 'asdf', categories: '', content:'data' };
+  const errors = {};
+
+  // Validate the input from 'values'
+  if (values.title.length < 3) {
+    errors.title = 'Title must be at least 3 characters';
+  }
+  if (!values.title) {
+    errors.title = "Enter a title!";
+  }
+  if (!values.categories) {
+    errors.categories = 'Enter some categories';
+  }
+  if (!values.content) {
+    errors.content = 'Enter some content please';
+  }
+
+  // If errors is empty, the form is fine to submit
+  // If errors has *nay* properties, deux form assumes form is invalid
+  return errors;
+
+}
+// When key is the same as the value you can just assign the value validate:validate => validate ES6
 export default reduxForm({
+  validate,
   form: 'PostsNewForm'
 })(PostsNew);
