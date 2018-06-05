@@ -26,11 +26,11 @@ export function createPost(values, callback) {
   }
 }
 
-export function fecthPost(id) {
-  const request = axios.post(`${ROOT_URL}/posts/${id}${API_KEY}`);
+export function fetchPost(id) {
+  const request = axios.get(`${ROOT_URL}/posts/${id}${API_KEY}`);
 
   return {
     type: FETCH_POST,
     payload: request
-  };
+  }
 }
